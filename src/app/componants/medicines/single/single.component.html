@@ -1,0 +1,22 @@
+<div class="card h-100 m-auto p-5">
+  <div class="row h-100">
+    <div class="col-4 h-100">
+      <img
+        class="img-fluid h-100 w-100"
+        src="{{ urlImage }}{{ medicine?.image }}"
+        alt="medicine-image"
+      />
+    </div>
+    <div class="col-4 position-relative">
+      <h2>{{ medicine?.title }}</h2>
+      <p class="fs-6">Description:</p>
+      <p>{{ medicine?.description }}</p>
+      <a routerLink="" class="col-6 btn btn-primary position-absolute bottom-0"
+        >Add To Cart</a
+      >
+    </div>
+    <div class="col-4 text-end">
+      <h2>{{ medicine?.price }} EGP</h2>
+    </div>
+  </div>
+</div>

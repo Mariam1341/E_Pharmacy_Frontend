@@ -1,0 +1,80 @@
+<div class="card h-100 m-auto p-5">
+  <div class="row h-100" *ngIf="cartData.length > 0">
+    <div class="col-12 mb-3" *ngFor="let medicine of cartData">
+      <div class="row">
+        <div class="col-2">
+          <img
+            class="img-fluid h-100 w-100"
+            src="{{ urlImage }}{{ medicine.medicineImage }}"
+            alt="medicine-image"
+          />
+        </div>
+        <div class="col-4 position-relative">
+          <h2>{{ medicine.medicineTitle }}</h2>
+          <h3>Price {{ medicine.medicinePrice }} EGP</h3>
+          <div class="row gx-0">
+            <div class="col-2 text-center">
+              <button class="w-75 h-100" (click)="decrementCount(countInput)">
+                -
+              </button>
+            </div>
+
+            <div class="col-2 text-center">
+              <input
+                #countInput
+                disabled
+                class="text-center w-100 h-100"
+                type="text"
+                value="{{ medicine.medicineCount }}"
+              />
+            </div>
+
+            <div class="col-2 text-center">
+              <button class="w-75 h-100" (click)="incrementCount(countInput)">
+                +
+              </button>
+            </div>
+
+            <div class="col-5 text-center">
+              <button
+                class="btn w-100"
+                (click)="changeCountFun(countInput, medicine.medicineId)"
+                [ngClass]="{
+                  'btn-warning': countInput.value != medicine.medicineCount
+                }"
+                [disabled]="countInput.value == medicine.medicineCount"
+              >
+                Update Count
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 ms-auto">
+          <button
+            class="btn btn-danger btn-block"
+            (click)="
+              deleteFromCart(
+                medicine.medicineId,
+                medicine.medicinePrice,
+                medicine.medicineCount
+              )
+            "
+          >
+            Delete medicine
+          </button>
+        </div>
+      </div>
+    </div>
+    <h2 class="ms-auto">Total Price {{ totalPrice }} EGP</h2>
+    <button
+      id="checkout_btn"
+      class="btn btn-primary btn-block m-3"
+      (click)="checkout(cartData, totalPrice)"
+    >
+      Checkout
+    </button>
+  </div>
+  <div class="row h-100" *ngIf="cartData.length == 0">
+    <h3>Your cart is Empty Please add products to your cart</h3>
+  </div>
+</div>

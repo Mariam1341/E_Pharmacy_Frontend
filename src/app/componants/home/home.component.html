@@ -1,0 +1,62 @@
+<form>
+  <div>
+    <input
+      [(ngModel)]="searchText"
+      name="searchText"
+      (input)="searchFun()"
+      class="form-control w-100"
+      type="text"
+      placeholder="Enter medicine name"
+    />
+  </div>
+</form>
+
+<div class="row mt-3 g-5 position-relative">
+  <div class="col-4" *ngFor="let medicine of tempmedicines">
+    <div class="card h-100 p-3">
+      <img
+        class="img-fluid"
+        src="http://localhost:3000/images/{{ medicine.image }}"
+        alt="medicine-image"
+      />
+      <div class="text-center">
+        <a
+          routerLink="/medicines/single/{{ medicine._id }}"
+          class="btn btn-primary col-5 me-2 mb-2"
+          >View Details</a
+        >
+        <a
+          (click)="
+            addCart(
+              medicine._id,
+              medicine.title,
+              medicine.image,
+              medicine.price
+            )
+          "
+          class="btn btn-primary col-5 mb-2"
+          >Add To Cart</a
+        >
+
+        <a
+          *ngIf="userServices.user?.role == 'admin'"
+          class="btn btn-primary col-5 me-2 mb-2"
+          routerLink="/medicines/update/{{ medicine._id }}"
+          >Update</a
+        >
+
+        <a
+          *ngIf="userServices.user?.role == 'admin'"
+          class="btn btn-primary col-5 mb-2"
+          (click)="top(medicine._id)"
+          >Delete</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="deleteDialogue text-center w-50 p-5" *ngIf="deleteDialogue">
+    <h4>Are You Sure You want to delete this item?</h4>
+    <button (click)="deletemedicine()" class="me-3">Ok</button>
+    <button (click)="deleteDialogue = !deleteDialogue">Cancel</button>
+  </div>
+</div>

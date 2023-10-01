@@ -1,0 +1,35 @@
+<div class="row g-5 position-relative">
+  <div class="col-4" *ngFor="let medicine of _medicineServices.favmedicines">
+    <div class="card h-100 p-3">
+      <div class="row">
+        <h2 class="col">{{ medicine.medicineTitle }}</h2>
+        <!-- <mat-icon (click)="deleteFromFavourite(medicine.medicineId)" class="col text-end fs-2 w-100 h-100">favorite</mat-icon> -->
+      </div>
+      <img
+        class="img-fluid"
+        src="http://localhost:3000/images/{{ medicine.medicineImage }}"
+        alt="medicine-image"
+      />
+      <div class="text-center mt-auto">
+        <h3>Price: {{ medicine.medicinePrice }} EGP</h3>
+        <a
+          routerLink="/medicines/single/{{ medicine.medicineId }}"
+          class="btn btn-primary col-5 me-2 mb-2"
+          >View Details</a
+        >
+        <a
+          (click)="
+            addCart(
+              medicine.medicineId,
+              medicine.medicineTitle,
+              medicine.medicineImage,
+              medicine.medicinePrice
+            )
+          "
+          class="btn btn-primary col-5 mb-2"
+          >Add To Cart</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
